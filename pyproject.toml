@@ -1,0 +1,6 @@
+[project]
+name = "mi_proyecto"
+version = "0.1.0"
+dependencies = [
+    "rich>=13.9.4",
+]
