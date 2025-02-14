@@ -9,3 +9,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# proyecto parcialmente terminado, falta completar las demas partes.
