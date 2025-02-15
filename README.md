@@ -50,6 +50,8 @@ El sistema permite al usuario interactuar a través de un menú en la consola co
 ## Tecnologías Utilizadas
 - Python 3
 - Programación Orientada a Objetos (POO)
+- Python UV
+- Python Rich
 
 ## Instalación y Ejecución
 1. Clonar este repositorio.
