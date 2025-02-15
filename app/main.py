@@ -4,8 +4,8 @@ from app.model import Tienda
 
 def main():
     tienda: Tienda = Tienda("Tienda barata")
-    ui: TiendaUI = TiendaUI(tienda)
-    ui.ejercutar()
+    interface: TiendaUI = TiendaUI(tienda)
+    interface.ejecutar()
 
 if __name__ == "__main__":
     main()

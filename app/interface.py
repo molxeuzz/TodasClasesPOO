@@ -22,7 +22,7 @@ class TiendaUI:
 
         return opcion
 
-    def ejercutar(self):
+    def ejecutar(self):
         while True:
             opcion = self.mostrar_menu()
             match opcion:
@@ -31,13 +31,13 @@ class TiendaUI:
                 case "2":
                     self.mostrar_productos_tienda()
                 case "3":
-                    pass
+                    self.agregar_producto_a_carrito()
                 case "4":
-                    pass
+                    self.mostrar_productos_carrito()
                 case "5":
-                    pass
+                    self.calcular_total_compra()
                 case "6":
-                    self.consola.print("Gracias!!", style="bold yellow")
+                    self.consola.print("Gracias por visitar!!", style="bold yellow")
                     break
 
     def agregar_producto_a_tienda(self):
@@ -49,15 +49,43 @@ class TiendaUI:
 
     def mostrar_productos_tienda(self):
         if len(self.tienda.productos) == 0:
-            self.consola.print("[red] No hay productos en la tienda [/red]")
+            self.consola.print("\n [red] No hay productos en la tienda [/red]")
             return
 
         tabla: Table = Table(title="Lista de productos", box=box.SQUARE_DOUBLE_HEAD)
-        tabla.add_column("#", style="lightgray")
-        tabla.add_column("Nombre", style="gray")
-        tabla.add_column("Precio", style="black")
+        tabla.add_column("#", style="yellow")
+        tabla.add_column("Nombre", style="yellow")
+        tabla.add_column("Precio", style="yellow")
 
-        for i in len(range(self.tienda.productos)):
-            tabla.add_row(str(i+1), self.tienda.productos[i].nombre, str(self.tienda.productos[i].precio))
+        for i, producto in enumerate(self.tienda.productos, start=1):
+            tabla.add_row(str(i), producto.nombre, str(producto.precio))
 
         self.consola.print(tabla)
+
+    def agregar_producto_a_carrito(self):
+        if not self.tienda.productos:
+            self.consola.print("[red] No hay productos disponibles para agregar al carrito. [/red]")
+            return
+
+        self.mostrar_productos_tienda()
+        indice = int(Prompt.ask("Seleccione el número del producto a agregar al carrito: "))
+
+        if 1 <= indice <= len(self.tienda.productos):
+            producto = self.tienda.productos[indice - 1]
+            self.tienda.agregar_a_carrito(producto)
+            self.consola.print(f"[green] Producto {producto.nombre} agregado al carrito exitosamente!! [/green]")
+        else:
+            self.consola.print("[red] Selección inválida. [/red]")
+
+    # def mostrar_productos_carrito(self):
+        # if not self.tienda.carrito:
+            # self.consola.print("[red] No hay productos en el carrito [/red]")
+            # return
+
+    def calcular_total_compra(self):
+        if not self.tienda.carrito:
+            self.consola.print("[red] El carrito está vacío [/red]")
+            return
+
+        total = sum(producto.precio for producto in self.tienda.carrito)
+        self.consola.print(f"[yellow] Total a pagar: ${total:.2f} [/yellow]")
