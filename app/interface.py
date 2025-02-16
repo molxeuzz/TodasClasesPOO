@@ -52,7 +52,7 @@ class TiendaUI:
             self.consola.print("\n [red] No hay productos en la tienda [/red]")
             return
 
-        tabla: Table = Table(title="Lista de productos", box=box.SQUARE_DOUBLE_HEAD)
+        tabla: Table = Table(title="\n Lista de productos", box=box.SQUARE_DOUBLE_HEAD)
         tabla.add_column("#", style="yellow")
         tabla.add_column("Nombre", style="yellow")
         tabla.add_column("Precio", style="yellow")
