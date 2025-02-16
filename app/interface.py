@@ -72,20 +72,30 @@ class TiendaUI:
 
         if 1 <= indice <= len(self.tienda.productos):
             producto = self.tienda.productos[indice - 1]
-            self.tienda.agregar_a_carrito(producto)
+            self.tienda.cliente.agregar_producto(producto)  # Agregamos al carrito del cliente
             self.consola.print(f"[green] Producto {producto.nombre} agregado al carrito exitosamente!! [/green]")
         else:
             self.consola.print("[red] Selección inválida. [/red]")
 
-    # def mostrar_productos_carrito(self):
-        # if not self.tienda.carrito:
-            # self.consola.print("[red] No hay productos en el carrito [/red]")
-            # return
+    def mostrar_productos_carrito(self):
+        if not self.tienda.cliente.carrito:
+            self.consola.print("[red] No hay productos en el carrito [/red]")
+            return
+
+        tabla = Table(title="\n Carrito de Compras", box=box.SQUARE_DOUBLE_HEAD)
+        tabla.add_column("#", style="yellow")
+        tabla.add_column("Nombre", style="yellow")
+        tabla.add_column("Precio", style="yellow")
+
+        for i, producto in enumerate(self.tienda.cliente.carrito, start=1):
+            tabla.add_row(str(i), producto.nombre, f"${producto.precio:.2f}")
+
+        self.consola.print(tabla)
 
     def calcular_total_compra(self):
-        if not self.tienda.carrito:
+        if not self.tienda.cliente.carrito:
             self.consola.print("[red] El carrito está vacío [/red]")
             return
 
-        total = sum(producto.precio for producto in self.tienda.carrito)
+        total = self.tienda.cliente.calcular_total()
         self.consola.print(f"[yellow] Total a pagar: ${total:.2f} [/yellow]")

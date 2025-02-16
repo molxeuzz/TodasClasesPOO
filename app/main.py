@@ -1,9 +1,10 @@
 
 from app.interface import TiendaUI
-from app.model import Tienda
+from app.model import Tienda, Cliente
 
 def main():
-    tienda: Tienda = Tienda("Tienda barata")
+    cliente = Cliente("Juan")  # Creamos un cliente
+    tienda: Tienda = Tienda("Tienda barata", cliente)
     interface: TiendaUI = TiendaUI(tienda)
     interface.ejecutar()
 

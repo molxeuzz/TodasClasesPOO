@@ -31,9 +31,10 @@ class Cliente:
 
 class Tienda:
 
-    def __init__(self, nombre: str):
+    def __init__(self, nombre: str, cliente: Cliente):
         self.nombre: str = nombre
         self.productos: list[Producto] = []
+        self.cliente: Cliente = cliente  # Asociamos un cliente a la tienda
 
     def agregar_producto(self, producto: Producto):
         self.productos.append(producto)
